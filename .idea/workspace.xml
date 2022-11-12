@@ -1,33 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="907ff7fa-5b09-4423-9c4a-b97181525b49" name="Changes" comment="e">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Account.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/AccountManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BackgroundPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/BasicBackgroundPanel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Cache.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CartLabelButton.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CartManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/FastPanelList.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Furniture/Bed.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Furniture/Chair.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Furniture/Couch.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Furniture/Furniture.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Furniture/Table.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/FurnitureManager/FurnitureManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RoundButton.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/RoundedBorder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/accounts.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/products/beds/bed1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/products/chairs/chair1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/products/couches/couch1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/products/tables/table1.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/login_screen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main_screen.java" afterDir="false" />
+    <list default="true" id="907ff7fa-5b09-4423-9c4a-b97181525b49" name="Changes" comment="First Big Release&#10;Alot of functionalities ready">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +60,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668068949918</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="First Big Release&#10;Alot of functionalities ready">
+      <created>1668277464282</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1668277464282</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -101,7 +83,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="e" />
-    <option name="LAST_COMMIT_MESSAGE" value="e" />
+    <MESSAGE value="First Big Release&#10;Alot of functionalities ready" />
+    <option name="LAST_COMMIT_MESSAGE" value="First Big Release&#10;Alot of functionalities ready" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
