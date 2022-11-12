@@ -1,10 +1,7 @@
-import Furniture.Chair;
 import Furniture.Furniture;
-import FurnitureManager.FurnitureManager;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
@@ -12,20 +9,19 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
 
 public class main_screen extends JFrame implements ActionListener, MouseListener {
 //    cache current_cache = new cache();
 //    BufferedImage img = current_cache.img;
     BufferedImage cart_img = ImageIO.read(new File("C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\images\\cart2.png"));
-    int cart_items_counter = 0;
-    ArrayList<Integer> cart_items_counter_two = new ArrayList<Integer>();
+
+
 
     // index 0 = chair , 1 = table, 2 = couch, 3 = bed
-    FurnitureManager furniture_manger = new FurnitureManager();
+
     ArrayList<Furniture> cart_items_array = new ArrayList<Furniture>();
-    ArrayList<JPanel> cart_item_panel = new ArrayList<JPanel>();
+
+    CartManager cart_manager = new CartManager();
     JList main_list;
 //    JPanel cart_items;
 
@@ -47,9 +43,7 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
 //            temp_cart_panel();
 //        }
 
-        for(int i = 0; i <4; i++){
-            cart_items_counter_two.add(0);
-        }
+
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1540,800);
         this.setLayout (null);
@@ -139,7 +133,7 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
         nav_bar.add(contact_us_label);
 
         //JLabel cart_label = new JLabel("Cart (" + cart_items +")");
-        JLabel cart_label = new JLabel("Cart (" + cart_items_counter +")");
+        JLabel cart_label = new JLabel("Cart (" + cart_manager.getCartItemsCounter()+")");
         cart_label.setBounds(1540 - 280, 15, 200,45);
         cart_label.setFont(new Font("Serif", Font.BOLD, 40));
 //        cart_label.setOpaque(false);
@@ -155,17 +149,14 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
 
 
 
-                for(int i = 0; i < cart_item_panel.size(); i++){
+                for(int i = 0; i < cart_manager.getCart().size(); i++){
                     JPanel temp_panel = new JPanel();
                     //temp_panel = cart_item_panel.get(i);
                     //temp_panel.setBounds(50,50,400,100);
                     //temp_panel.setBackground(Color.black);
 
-                    cart_items.add( cart_item_panel.get(i));
+                    cart_items.add( cart_manager.getCart().get(i));
                     //cart_items.add(temp_panel);
-                }
-                for(int i = 0; i < cart_item_panel.size(); i++){
-                    System.out.println(cart_item_panel.get(i));
                 }
 
 //                cart_items.setBounds(1540 - 450, 100, 400, 631);
@@ -328,35 +319,8 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
         cart_icon1.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                cart_items_counter++;
-                cart_label.setText("Cart (" + cart_items_counter +")");
-                furniture_manger.buyChair();
-                furniture_manger.displayStock();
-                cart_items_counter_two.set(0, cart_items_counter_two.get(0) + 1);
-                if(cart_item_panel.size() > 0) {
-                    for (int i = 0; i < cart_item_panel.size(); i++) {
-//                    ArrayList<Object> temp_array = new ArrayList<Object>();
-//                    temp_array = cart_item_panel.get(i).getComponents();
-//                    for(int j = 0; j < temp_array.length; j++){
-//                        if(temp_array.)
-//                    }
-                        for (Component c : cart_item_panel.get(i).getComponents()) {
-                            if (c instanceof JLabel) {
-                                if (Objects.equals(((JLabel) c).getText(), "Chair")) {
-                                    for (Component b : cart_item_panel.get(i).getComponents()) {
-                                        //if(((JLabel) b).getText() == "0")
-                                        if (b instanceof JLabel && b != c) {
-                                            if(!Objects.equals(((JLabel) b).getText(), "-") && !Objects.equals(((JLabel) b).getText(), "+") && !((JLabel) b).getText().contains("$")){
-                                                ((JLabel) b).setText(cart_items_counter_two.get(0).toString());
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-                else {
+                cart_label.setText("Cart (" + cart_manager.getCartItemsCounter() +")");
+                if(cart_manager.cartEmpty()) {
                     JPanel cart_panel_item = new JPanel();
                     cart_panel_item.setBounds(0, 10, 400, 100);
                     //cart_panel_item.setBackground(new Color(255,255,255,150));
@@ -384,11 +348,14 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
                         @Override
                         public void mouseClicked(MouseEvent e) {
                             System.out.println("IM HERE FUCKERS");
-                            cart_items_counter--;
-                            cart_label.setText("Cart (" + cart_items_counter +")");
-                            furniture_manger.buyChair();
-                            furniture_manger.displayStock();
-                            cart_items_counter_two.set(0, cart_items_counter_two.get(0) - 1);
+                            cart_manager.decreaseItemsCounter();
+                            cart_label.setText("Cart (" + cart_manager.getCartItemsCounter() +")");
+                            cart_manager.furniture_manger.buyChair();
+                            cart_manager.furniture_manger.displayStock();
+                            //furniture_manger.buyChair();
+                            //furniture_manger.displayStock();
+                            cart_manager.decreaseChairCounter();
+                            //cart_items_counter_two.set(0, cart_items_counter_two.get(0) - 1);
                         }
 
                         @Override
@@ -411,7 +378,7 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
                         }
                     });
 
-                    JLabel item_count_label = new JLabel(cart_items_counter_two.get(0).toString());
+                    JLabel item_count_label = new JLabel(String.valueOf(cart_manager.getChairCounter()));
                     //S//ystem.out.println("size: " + test_label.getUIClassID());
                     item_count_label.setBounds(chair_item_background1.getWidth() + chair_item_background1.getX() + 10 + 30, 60, 50, 20);
                     item_count_label.setFont(new Font("Serif", Font.BOLD, 20));
@@ -426,11 +393,12 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
                     add_item_label.addMouseListener(new MouseListener() {
                         @Override
                         public void mouseClicked(MouseEvent e) {
-                            cart_items_counter++;
-                            cart_label.setText("Cart (" + cart_items_counter +")");
-                            furniture_manger.buyChair();
-                            furniture_manger.displayStock();
-                            cart_items_counter_two.set(0, cart_items_counter_two.get(0) + 1);
+                            cart_manager.increaseItemsCounter();
+                            cart_label.setText("Cart (" + cart_manager.getCartItemsCounter() +")");
+                            cart_manager.furniture_manger.buyChair();
+                            cart_manager.furniture_manger.displayStock();
+                            cart_manager.increaseChairCounter();
+
                         }
 
                         @Override
@@ -460,7 +428,13 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
                     price_label.setFont(new Font("Serif", Font.BOLD, 20));
                     cart_panel_item.add(price_label);
 
-                    cart_item_panel.add(cart_panel_item);
+                    cart_manager.addToCart(cart_panel_item);
+                    cart_manager.updateChair();
+                    cart_label.setText("Cart (" + cart_manager.getCartItemsCounter() +")");
+                }
+                else {
+                    cart_manager.updateChair();
+                    cart_label.setText("Cart (" + cart_manager.getCartItemsCounter() +")");
                 }
 
 
@@ -725,55 +699,7 @@ public void ShowItemList(ArrayList<JPanel> paneList, JPanel container) {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        if(cart_item_panel.size() > 0) {
-            for (int i = 0; i < cart_item_panel.size(); i++) {
-//                    ArrayList<Object> temp_array = new ArrayList<Object>();
-//                    temp_array = cart_item_panel.get(i).getComponents();
-//                    for(int j = 0; j < temp_array.length; j++){
-//                        if(temp_array.)
-//                    }
-                for (Component c : cart_item_panel.get(i).getComponents()) {
-                    if (c instanceof JLabel) {
-                        if (Objects.equals(((JLabel) c).getText(), "-")) {
-                            if(e.getSource() == c){
-                                System.out.println("IM HERE FUCKERS");
-                                cart_items_counter--;
-                                //cart_label.setText("Cart (" + cart_items_counter +")");
-                                furniture_manger.buyChair();
-                                furniture_manger.displayStock();
-                                cart_items_counter_two.set(0, cart_items_counter_two.get(0) - 1);
-                            }
-                            c.addMouseListener(new MouseListener() {
-                                @Override
-                                public void mouseClicked(MouseEvent e) {
 
-                                }
-
-                                @Override
-                                public void mousePressed(MouseEvent e) {
-
-                                }
-
-                                @Override
-                                public void mouseReleased(MouseEvent e) {
-
-                                }
-
-                                @Override
-                                public void mouseEntered(MouseEvent e) {
-
-                                }
-
-                                @Override
-                                public void mouseExited(MouseEvent e) {
-
-                                }
-                            });
-                        }
-                    }
-                }
-            }
-        }
     }
 
     @Override
