@@ -35,6 +35,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class signup_screen extends JFrame implements ActionListener, KeyListener{
     //    JLabel label;
@@ -196,7 +198,7 @@ public class signup_screen extends JFrame implements ActionListener, KeyListener
         p2.setSize(450,349);
         p2.setSize(450,350);
 
-        JLabel create_account_label = new JLabel("Don't have an account?");
+        JLabel create_account_label = new JLabel("Sign in?");
         create_account_label.setBounds(45, sign_in_button.getY()+63, 180,25);
         create_account_label.setFont(new Font("Serif", Font.PLAIN, 17));
         create_account_label.setForeground(Color.blue);
@@ -208,7 +210,12 @@ public class signup_screen extends JFrame implements ActionListener, KeyListener
         create_account_label.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                dispose();
+                try {
+                    new login_screen(bg_img);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
 
             @Override
@@ -285,14 +292,40 @@ public class signup_screen extends JFrame implements ActionListener, KeyListener
                 String password_field_value = String.valueOf(password_field.getPassword());
 //                System.out.println(email_field_value);
 //                System.out.println(password_field_value);
+
                 Account user = new Account();
+                boolean isEmpty = true;
+                boolean isEmail = false;
+                if(!email_field_value.isEmpty() && !password_field_value.isEmpty()){
+                    isEmpty = false;
+                    String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+                            + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+                    Pattern pattern = Pattern.compile(regexPattern);
+                    Matcher matcher = pattern.matcher(email_field_value);
+                    if(matcher.matches()){
+                        isEmail = true;
+                    }
+                    else{
+                        email_field.setBorder(new LineBorder(Color.red, 2));
+                        password_field.setBorder(new LineBorder(Color.red, 2));
+                    }
+                }
+                else
+                {
+                    email_field.setBorder(new LineBorder(Color.red, 2));
+                    password_field.setBorder(new LineBorder(Color.red, 2));
+                }
+
+
+
+
                 try {
-                    if(!account_manager.userExists(email_field_value, password_field_value)){
+                    if(!account_manager.userExists(email_field_value, password_field_value) && !isEmpty &&isEmail){
                         user.setEmail(email_field_value);
                         user.setPassword(password_field_value);
                         user.setAccount_type("user");
                         int verification_code = generateCode();
-                        sendConfirmation(verification_code);
+                        sendConfirmation(email_field_value, verification_code);
                         setVisible(false);
                         try {
                             new email_confirmation_screen(bg_img, user, verification_code);
@@ -374,7 +407,7 @@ public class signup_screen extends JFrame implements ActionListener, KeyListener
                             user.setPassword(password_field_value);
                             user.setAccount_type("user");
                             int verification_code = generateCode();
-                            sendConfirmation(verification_code);
+                            sendConfirmation(email_field_value,verification_code);
                             setVisible(false);
                             try {
                                 new email_confirmation_screen(bg_img, user, verification_code);
@@ -521,7 +554,7 @@ public class signup_screen extends JFrame implements ActionListener, KeyListener
         int code = rand.nextInt(99999) + 10000;
         return code;
     }
-    void sendConfirmation(int verification_code){
+    void sendConfirmation(String email ,int verification_code){
 //        System.out.println("SimpleEmail Start");
 //
 //        String smtpHostServer = "smtp.example.com";
@@ -576,7 +609,7 @@ public class signup_screen extends JFrame implements ActionListener, KeyListener
 //        }
 
         // Recipient's email ID needs to be mentioned.
-        String to = "haruyukari2@gmail.com";
+        String to = email;
 
         // Sender's email ID needs to be mentioned
         String from = "haruderemail1@gmail.com";

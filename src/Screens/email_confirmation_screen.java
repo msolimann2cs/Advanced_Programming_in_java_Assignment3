@@ -169,7 +169,7 @@ public class email_confirmation_screen extends JFrame implements ActionListener,
 //            }
 //        });
 
-        JButton sign_in_button = new JButton("Sign in");
+        JButton sign_in_button = new JButton("Confirm");
         sign_in_button.setBackground(new Color(
                 0,192,0));
         sign_in_button.setForeground(Color.white);
@@ -182,7 +182,7 @@ public class email_confirmation_screen extends JFrame implements ActionListener,
         p2.setSize(450,349);
         p2.setSize(450,350);
 
-        JLabel create_account_label = new JLabel("Don't have an account?");
+        JLabel create_account_label = new JLabel("Go back?");
         create_account_label.setBounds(45, sign_in_button.getY()+63, 180,25);
         create_account_label.setFont(new Font("Serif", Font.PLAIN, 17));
         create_account_label.setForeground(Color.blue);
@@ -194,7 +194,12 @@ public class email_confirmation_screen extends JFrame implements ActionListener,
         create_account_label.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                dispose();
+                try {
+                    new signup_screen(bg_img);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
 
             @Override
@@ -273,6 +278,8 @@ public class email_confirmation_screen extends JFrame implements ActionListener,
                     System.out.println("The code " + code + " is correct!!");
                     try {
                         account_manager.addUser(user.getEmail(), user.getPassword(), user.getAccount_type());
+                        dispose();
+                        new main_screen(bg_img);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
@@ -280,6 +287,7 @@ public class email_confirmation_screen extends JFrame implements ActionListener,
                 else{
                     System.out.println("The code " + email_field_value + " is incorrect!!");
                     System.out.println("The correct code is " + code);
+                    email_field.setBorder(new LineBorder(Color.red, 2));
                 }
 
 //                String password_field_value = String.valueOf(password_field.getPassword());
@@ -320,7 +328,25 @@ public class email_confirmation_screen extends JFrame implements ActionListener,
 //                    password_field.requestFocus();
 //                    password_field.setBorder(new LineBorder(new Color(
 //                            0,192,0), 2));
-
+                }
+                if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                    String email_field_value = email_field.getText();
+                    Integer code = verification_code;
+                    if(code.toString().equals(email_field_value)){
+                        System.out.println("The code " + code + " is correct!!");
+                        try {
+                            account_manager.addUser(user.getEmail(), user.getPassword(), user.getAccount_type());
+                            dispose();
+                            new main_screen(bg_img);
+                        } catch (IOException ex) {
+                            throw new RuntimeException(ex);
+                        }
+                    }
+                    else{
+                        System.out.println("The code " + email_field_value + " is incorrect!!");
+                        System.out.println("The correct code is " + code);
+                        email_field.setBorder(new LineBorder(Color.red, 2));
+                    }
                 }
             }
 

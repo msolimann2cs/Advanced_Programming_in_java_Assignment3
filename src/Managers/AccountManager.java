@@ -40,8 +40,8 @@ public class AccountManager {
     public Account ValidateUser(String email, String password) throws IOException {
         LoadAccounts();
         for(int i = 0; i < account_list.size(); i++){
-//            System.out.println(account_list.get(i).getEmail());
-//            System.out.println(account_list.get(i).getPassword());
+            System.out.println(account_list.get(i).getEmail());
+            System.out.println(account_list.get(i).getPassword());
             if((Objects.equals(account_list.get(i).getEmail(), email)) && (Objects.equals(account_list.get(i).getPassword(), password))){
                 //System.out.println("hi");
                 Account account = new Account();
@@ -58,10 +58,16 @@ public class AccountManager {
 
     public void addUser(String email, String password, String account_type) throws IOException {
 
+        if(account_list.isEmpty()){
+            LoadAccounts();
+        }
         FileWriter outputfile = new FileWriter(accounts_csv_path);
-
         // create CSVWriter object filewriter object as parameter
-        CSVWriter writer = new CSVWriter(outputfile);
+        //CSVWriter writer = new CSVWriter(outputfile);
+        CSVWriter writer = new CSVWriter(outputfile, ',',
+                CSVWriter.NO_QUOTE_CHARACTER,
+                CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                CSVWriter.DEFAULT_LINE_END);
         String[] account = { email, password, account_type };
         ArrayList<String[]> csv_data = new ArrayList<String[]>();
         csv_data.add(new String[]{"Email", "Passowrd", "Account Type"});

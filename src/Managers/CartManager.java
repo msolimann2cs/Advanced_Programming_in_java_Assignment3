@@ -63,49 +63,63 @@ public class CartManager {
     public void increaseChairCounter(){
         cart_items_counter_two.set(0, cart_items_counter_two.get(0) + 1);
         increaseItemsCounter();
+        total += furniture_manger.getChairPrice();
         updateChair();
     }
     public void decreaseChairCounter(){
         cart_items_counter_two.set(0, cart_items_counter_two.get(0) - 1);
         decreaseItemsCounter();
+        //int money = getChairCounter() > 0 ? furniture_manger.getChairPrice() * getChairCounter() : furniture_manger.getChairPrice();
+        total -= furniture_manger.getChairPrice();
         updateChair();
     }
     public void increaseTableCounter(){
         cart_items_counter_two.set(1, cart_items_counter_two.get(1) + 1);
         increaseItemsCounter();
+        total += furniture_manger.getTablePrice();
         updateTable();
     }
     public void decreaseTableCounter(){
         cart_items_counter_two.set(1, cart_items_counter_two.get(1) - 1);
         decreaseItemsCounter();
+        total -= furniture_manger.getTablePrice();
         updateTable();
     }
     public void increaseCouchCounter(){
         cart_items_counter_two.set(2, cart_items_counter_two.get(2) + 1);
         increaseItemsCounter();
+        total += furniture_manger.getCouchPrice();
         updateCouch();
     }
     public void decreaseCouchCounter(){
         cart_items_counter_two.set(2, cart_items_counter_two.get(2) - 1);
         decreaseItemsCounter();
+        total -= furniture_manger.getCouchPrice();
         updateCouch();
     }
     public void increaseBedCounter(){
         cart_items_counter_two.set(3, cart_items_counter_two.get(3) + 1);
         increaseItemsCounter();
+        total += furniture_manger.getBedPrice();
         updateBed();
     }
     public void decreaseBedCounter(){
         cart_items_counter_two.set(3, cart_items_counter_two.get(3) - 1);
         decreaseItemsCounter();
+        total -= furniture_manger.getBedPrice();
         updateBed();
     }
+//    public int getChairCounter(){}
     public ArrayList<JPanel> getCart(){
         return cart_panel_item_panels;
     }
 
     public void addToCart(JPanel pane){
         cart_panel_item_panels.add(pane);
+    }
+
+    public void removeFromCart(JPanel pane){
+        cart_panel_item_panels.remove(pane);
     }
     public void addChair(){
 
@@ -174,8 +188,6 @@ public class CartManager {
                                 }
                                 if( b instanceof JLabel && b != c){
                                     if(((JLabel) b).getText().contains("$")){
-                                        int money = getChairCounter() > 0 ? furniture_manger.getChairPrice() * getChairCounter() : furniture_manger.getChairPrice();
-                                        total += money;
                                         ((JLabel) b).setText("$" + String.valueOf(getChairCounter() > 0 ? furniture_manger.getChairPrice() * getChairCounter() : furniture_manger.getChairPrice() ));
                                     }
                                 }
@@ -199,8 +211,8 @@ public class CartManager {
                             }
                             if( b instanceof JLabel && b != c){
                                 if(((JLabel) b).getText().contains("$")){
-                                    int money = getTableCounter() > 0 ? furniture_manger.getTablePrice() * getTableCounter() : furniture_manger.getTablePrice();
-                                    total += money;
+//                                    int money = getTableCounter() > 0 ? furniture_manger.getTablePrice() * getTableCounter() : furniture_manger.getTablePrice();
+//                                    total += money;
                                     ((JLabel) b).setText("$" + String.valueOf(getTableCounter() > 0 ? furniture_manger.getTablePrice() * getTableCounter() : furniture_manger.getTablePrice() ));
                                 }
                             }
@@ -224,8 +236,8 @@ public class CartManager {
                             }
                             if( b instanceof JLabel && b != c){
                                 if(((JLabel) b).getText().contains("$")){
-                                    int money = getCouchCounter() > 0 ? furniture_manger.getCouchPrice() * getCouchCounter() : furniture_manger.getTablePrice();
-                                    total += money;
+//                                    int money = getCouchCounter() > 0 ? furniture_manger.getCouchPrice() * getCouchCounter() : furniture_manger.getTablePrice();
+//                                    total += money;
                                     ((JLabel) b).setText("$" + String.valueOf(getCouchCounter() > 0 ? furniture_manger.getCouchPrice() * getCouchCounter() : furniture_manger.getTablePrice() ));
                                 }
                             }
@@ -249,8 +261,8 @@ public class CartManager {
                             }
                             if( b instanceof JLabel && b != c){
                                 if(((JLabel) b).getText().contains("$")){
-                                    int money = getBedCounter() > 0 ? furniture_manger.getBedPrice() * getBedCounter() : furniture_manger.getBedPrice();
-                                    total += money;
+//                                    int money = getBedCounter() > 0 ? furniture_manger.getBedPrice() * getBedCounter() : furniture_manger.getBedPrice();
+//                                    total += money;
                                     ((JLabel) b).setText("$" + String.valueOf(getBedCounter() > 0 ? furniture_manger.getBedPrice() * getBedCounter() : furniture_manger.getBedPrice() ));
                                 }
                             }

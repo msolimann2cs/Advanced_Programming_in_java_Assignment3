@@ -30,7 +30,7 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
     AccountManager account_manager = new AccountManager();
     //Cache cache = new Cache();
 
-    public login_screen () throws IOException {
+    public login_screen (BufferedImage bg_img) throws IOException {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1540,800);
         this.setLayout (null);
@@ -38,8 +38,8 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
         //Container content_pane = this.getContentPane();
         //content_pane.setLayout(new BorderLayout());
         //this.getContentPane().setBackground(Color.black);
-        BufferedImage img = ImageIO.read(new File("C:\\D Drive\\img1.jpg"));
-        BackgroundPanel background_panel = new BackgroundPanel(img, BackgroundPanel.SCALED, 0f, 0f);
+
+        BackgroundPanel background_panel = new BackgroundPanel(bg_img, BackgroundPanel.SCALED, 0f, 0f);
         //GradientPaint paint = new GradientPaint(0, 0, Color.BLUE, 600, 0, Color.RED);
         //background_panel.setPaint(paint);
         //content_pane.add(background_panel);
@@ -80,7 +80,7 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
         main_panel.add(welcome_label);
 
         //----------------------------------------------------------------------------------
-        JLabel email_label = new JLabel("Your email");
+        JLabel email_label = new JLabel("Email");
         email_label.setBounds(30, 25, 80,25);
         email_label.setFont(new Font("Serif", Font.PLAIN, 17));
         p2.add(email_label);
@@ -99,7 +99,7 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
 
 
 
-        JLabel password_label = new JLabel("Your password");
+        JLabel password_label = new JLabel("Password");
         password_label.setBounds(30, email_field.getY()+60, 150,25);
         password_label.setFont(new Font("Serif", Font.PLAIN, 17));
         p2.add(password_label);
@@ -197,7 +197,7 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
                 setVisible(false);
                 dispose();
                 try {
-                    new signup_screen(img);
+                    new signup_screen(bg_img);
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
@@ -287,12 +287,14 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
                     try {
                         setVisible(false);
                         dispose();
-                        new main_screen(img);
+                        new main_screen(bg_img);
                     } catch (IOException ex) {
                         throw new RuntimeException(ex);
                     }
                 }
                 else{
+                    email_field.setBorder(new LineBorder(Color.red, 2));
+                    password_field.setBorder(new LineBorder(Color.red, 2));
                     System.out.println("error");
                 }
             }
@@ -350,12 +352,14 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
                         try {
                             setVisible(false);
                             dispose();
-                            new main_screen(img);
+                            new main_screen(bg_img);
                         } catch (IOException ex) {
                             throw new RuntimeException(ex);
                         }
                     }
                     else{
+                        email_field.setBorder(new LineBorder(Color.red, 2));
+                        password_field.setBorder(new LineBorder(Color.red, 2));
                         System.out.println("error");
                     }
                 }

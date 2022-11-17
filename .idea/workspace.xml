@@ -1,35 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="907ff7fa-5b09-4423-9c4a-b97181525b49" name="Changes" comment="First Big Release&#10;Alot of functionalities ready">
-      <change afterPath="$PROJECT_DIR$/src/Managers/CartManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Managers/FurnitureManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Screens/email_confirmation_screen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Screens/main_screen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Screens/reset_password_screen.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Screens/signup_screen.java" afterDir="false" />
+    <list default="true" id="907ff7fa-5b09-4423-9c4a-b97181525b49" name="Changes" comment="Refactored, added a few more screens that need work on">
+      <change afterPath="$PROJECT_DIR$/src/LocalDatabase/furniture.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assignmnet3.iml" beforeDir="false" afterPath="$PROJECT_DIR$/Assignmnet3.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Account.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Users/Account.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AccountManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/AccountManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BackgroundPanel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Components/BackgroundPanel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BasicBackgroundPanel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Cache.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CartLabelButton.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CartManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FastPanelList.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Furniture/Bed.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Furniture/Bed.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Furniture/Chair.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Furniture/Chair.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Furniture/Couch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Furniture/Couch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Furniture/Furniture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Furniture/Furniture.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Furniture/Table.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Furniture/Table.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/FurnitureManager/FurnitureManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LocalDatabase/accounts.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/LocalDatabase/accounts.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RoundButton.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/RoundedBorder.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/accounts.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/LocalDatabase/accounts.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/login_screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/login_screen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main_screen.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Managers/AccountManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/AccountManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Managers/CartManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/CartManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/email_confirmation_screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/email_confirmation_screen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/login_screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/login_screen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/main_screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/main_screen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/signup_screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/signup_screen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,7 +99,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668279075040</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Refactored, added a few more screens that need work on">
+      <created>1668710283031</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1668710283031</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -134,7 +123,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="e" />
     <MESSAGE value="First Big Release&#10;Alot of functionalities ready" />
-    <option name="LAST_COMMIT_MESSAGE" value="First Big Release&#10;Alot of functionalities ready" />
+    <MESSAGE value="Refactored, added a few more screens that need work on" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactored, added a few more screens that need work on" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
