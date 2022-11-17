@@ -1,3 +1,9 @@
+package Screens;
+
+import Components.BackgroundPanel;
+import Managers.AccountManager;
+import Users.Account;
+
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -22,9 +28,9 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
 //    JLabel l1;
 //    JPanel panel1;
     AccountManager account_manager = new AccountManager();
-    Cache cache = new Cache();
+    //Cache cache = new Cache();
 
-    login_screen () throws IOException {
+    public login_screen () throws IOException {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1540,800);
         this.setLayout (null);
@@ -80,9 +86,18 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
         p2.add(email_label);
 
         JTextField email_field = new JTextField(20);
-        email_field.setBorder(new LineBorder(Color.black, 2));
+        //email_field.setBorder(new LineBorder(Color.black, 2));
         email_field.setBounds(30,email_label.getY()+40,p2.getWidth()-60,45);
+        //email_field.requestFocus(false);
+        email_field.setBorder(new LineBorder(new Color(
+                0,192,0), 2));
+        //email_field.requestFocus();
+        email_field.setFocusTraversalKeysEnabled(false);
         p2.add(email_field);
+
+
+
+
 
         JLabel password_label = new JLabel("Your password");
         password_label.setBounds(30, email_field.getY()+60, 150,25);
@@ -94,7 +109,65 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
         JPasswordField password_field = new JPasswordField(20);
         password_field.setBorder(new LineBorder(Color.black, 2));
         password_field.setBounds(30,password_label.getY()+40,p2.getWidth()-60,45);
+        password_field.setFocusTraversalKeysEnabled(false);
         p2.add(password_field);
+
+        email_field.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                email_field.setBorder(new LineBorder(new Color(
+                        0,192,0), 2));
+                password_field.setBorder(new LineBorder(Color.black, 2));
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        password_field.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                email_field.setBorder(new LineBorder(Color.black, 2));
+                password_field.setBorder(new LineBorder(new Color(
+                        0,192,0), 2));
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
 
         JButton sign_in_button = new JButton("Sign in");
         sign_in_button.setBackground(new Color(
@@ -103,6 +176,7 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
         sign_in_button.setFont(new Font("Serif", Font.PLAIN, 17));
         //sign_in_button.setBorder(new LineBorder(Color.black, 2));
         sign_in_button.setBounds(60, password_field.getY()+75, p2.getWidth()-120, 45);
+        sign_in_button.setFocusTraversalKeysEnabled(false);
         //sign_in_button.setBorder(new RoundedBorder(30));
         p2.add(sign_in_button);
         p2.setSize(450,349);
@@ -112,13 +186,89 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
         create_account_label.setBounds(45, sign_in_button.getY()+63, 180,25);
         create_account_label.setFont(new Font("Serif", Font.PLAIN, 17));
         create_account_label.setForeground(Color.blue);
+//        create_account_label.setBackground(new Color(0,0,0,0));
+//        create_account_label.setOpaque(true);
+
         p2.add(create_account_label);
+
+        create_account_label.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                setVisible(false);
+                dispose();
+                try {
+                    new signup_screen(img);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                //create_account_label.setBackground(new Color(255,255,255,190));
+                create_account_label.setForeground(new Color(
+                        0,192,0));
+                main_panel.repaint();
+                //p2.setBackground(new Color(0,255,255,190));
+                //create_account_label.setOpaque(false);
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                //create_account_label.setBackground(new Color(255,255,255,190));
+                create_account_label.setForeground(Color.blue);
+                main_panel.repaint();
+                //p2.setBackground(new Color(255,255,255,190));
+                //create_account_label.setOpaque(false);
+
+            }
+        });
 
         JLabel forgot_password_label = new JLabel("Forgot password?");
         forgot_password_label.setBounds(create_account_label.getWidth()+100, sign_in_button.getY()+63, 150,25);
         forgot_password_label.setFont(new Font("Serif", Font.PLAIN, 17));
         forgot_password_label.setForeground(Color.blue);
         p2.add(forgot_password_label);
+
+        forgot_password_label.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                forgot_password_label.setForeground(new Color(
+                        0,192,0));
+                main_panel.repaint();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                forgot_password_label.setForeground(Color.blue);
+                main_panel.repaint();
+            }
+        });
 
         sign_in_button.addActionListener(new ActionListener() {
             @Override
@@ -148,6 +298,30 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
             }
         });
 
+        email_field.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_TAB){
+                    email_field.setBorder(new LineBorder(Color.black, 2));
+                    email_field.requestFocus(false);
+                    password_field.requestFocus();
+                    password_field.setBorder(new LineBorder(new Color(
+                            0,192,0), 2));
+
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+
         password_field.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -156,6 +330,10 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
 
             @Override
             public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_TAB){
+                    password_field.setBorder(new LineBorder(Color.black, 2));
+                    sign_in_button.requestFocus();
+                }
                 if(e.getKeyCode() == KeyEvent.VK_ENTER)
                 {
                     String email_field_value = email_field.getText();
@@ -189,7 +367,77 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
             }
         });
 
+        sign_in_button.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
 
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_TAB){
+                    email_field.setBorder(new LineBorder(new Color(
+                            0,192,0), 2));
+                    email_field.requestFocus();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
+        main_panel.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                email_field.setBorder(new LineBorder(Color.black, 2));
+                //email_field.requestFocus(false);
+                password_field.setBorder(new LineBorder(Color.black, 2));
+                //password_field.requestFocus(false);
+                main_panel.requestFocus();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        main_panel.setFocusTraversalKeysEnabled(false);
+        main_panel.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+
+            }
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if(e.getKeyCode() == KeyEvent.VK_TAB){
+                    email_field.requestFocus();
+                    email_field.setBorder(new LineBorder(new Color(
+                            0,192,0), 2));
+                    password_field.setBorder(new LineBorder(Color.black, 2));
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+
+            }
+        });
         //p2.revalidate();
         //----------------------------------------------------------------------------------
         //background_panel.add(main_panel, BorderLayout.CENTER);
