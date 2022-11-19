@@ -79,12 +79,52 @@ public class AccountManager {
         writer.close();
     }
 
+    public void changeUserPassowrd(String email, String password, String account_type) throws IOException {
+
+        if(account_list.isEmpty()){
+            LoadAccounts();
+        }
+        FileWriter outputfile = new FileWriter(accounts_csv_path);
+        // create CSVWriter object filewriter object as parameter
+        //CSVWriter writer = new CSVWriter(outputfile);
+        CSVWriter writer = new CSVWriter(outputfile, ',',
+                CSVWriter.NO_QUOTE_CHARACTER,
+                CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                CSVWriter.DEFAULT_LINE_END);
+        //String[] account = { email, password, account_type };
+        ArrayList<String[]> csv_data = new ArrayList<String[]>();
+        csv_data.add(new String[]{"Email", "Passowrd", "Account Type"});
+        for(int i = 0; i < account_list.size(); i++){
+            if(Objects.equals(account_list.get(i).getEmail(), email)){
+                csv_data.add(new String[] {account_list.get(i).getEmail(), password, account_list.get(i).getAccount_type()});
+            }
+            else{
+                csv_data.add(new String[] {account_list.get(i).getEmail(), account_list.get(i).getPassword(), account_list.get(i).getAccount_type()});
+            }
+
+        }
+        //csv_data.add(account);
+        writer.writeAll(csv_data);
+        writer.close();
+    }
+
     public boolean userExists(String email, String password) throws IOException {
         if(account_list.isEmpty()){
             LoadAccounts();
         }
         for(int i = 0; i < account_list.size(); i++){
             if((Objects.equals(account_list.get(i).getEmail(), email)) && (Objects.equals(account_list.get(i).getPassword(), password))){
+                return true;
+            }
+        }
+        return  false;
+    }
+    public boolean userExistsReset(String email) throws IOException {
+        if(account_list.isEmpty()){
+            LoadAccounts();
+        }
+        for(int i = 0; i < account_list.size(); i++){
+            if((Objects.equals(account_list.get(i).getEmail(), email))){
                 return true;
             }
         }

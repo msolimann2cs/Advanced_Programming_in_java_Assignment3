@@ -243,7 +243,13 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
         forgot_password_label.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                setVisible(false);
+                dispose();
+                try {
+                    new reset_password_screen(bg_img);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
 
             @Override

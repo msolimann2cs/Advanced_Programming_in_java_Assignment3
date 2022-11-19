@@ -3,8 +3,12 @@ package Screens;
 import Components.BackgroundPanel;
 import Furniture.Furniture;
 import Managers.CartManager;
+import Users.Account;
 
 import javax.imageio.ImageIO;
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -17,6 +21,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class main_screen extends JFrame implements ActionListener, MouseListener {
     //    cache current_cache = new cache();
@@ -24,6 +31,7 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
     BufferedImage cart_img = ImageIO.read(new File("C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\images\\cart2.png"));
     BufferedImage cart_img_no_stock = ImageIO.read(new File("C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\images\\cart2_red.png"));
 
+    BufferedImage bg_img_two;
 
     // index 0 = chair , 1 = table, 2 = couch, 3 = bed
 
@@ -31,12 +39,17 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
 
     CartManager cart_manager = new CartManager();
     JList main_list;
+    BackgroundPanel background_panel;
+    JPanel OG_panel;
     JPanel main_panel;
+    JPanel nav_bar;
     JLabel cart_label;
     JPanel cart_items;
     JLabel total_money_label_actual;
     JPanel purchase_panel;
     JPanel cart_menu;
+    JPanel about_us_main_panel;
+    JPanel contact_us_main_panel;
 
 //    JPanel cart_items;
 
@@ -57,6 +70,8 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
 //        for(int i = 0; i < 10; i++){
 //            temp_cart_panel();
 //        }
+        bg_img_two = bg_img;
+
 
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -64,7 +79,7 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
         this.setLayout(null);
 
         //BufferedImage img = ImageIO.read(new File("C:\\D Drive\\img1.jpg"));
-        BackgroundPanel background_panel = new BackgroundPanel(bg_img, BackgroundPanel.SCALED, 0f, 0f);
+        background_panel = new BackgroundPanel(bg_img, BackgroundPanel.SCALED, 0f, 0f);
 //        JPanel background_panel = new JPanel();
 //        background_panel.setBackground(new Color(211, 211, 211, 230));
 //        background_panel.setBounds(0,0,1540, 800);
@@ -72,6 +87,21 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
         this.setContentPane(background_panel);
         this.setVisible(true);
 
+
+
+        //-------------------------------------------------------------------------------
+        OG_panel = new JPanel();
+        OG_panel.setLayout(null);
+        OG_panel.setSize(1540, 800);
+        OG_panel.setLocation(0, 0);
+        //OG_panel.setBackground(Color.white);
+        //OG_panel.setOpaque(true);
+        background_panel.add(OG_panel);
+        AboutUsPage();
+        ContactUsPage();
+        //background_panel.repaint();
+        about_us_main_panel.setVisible(false);
+        contact_us_main_panel.setVisible(false);
         //-------------------------------------------------------------------------------
         main_panel = new JPanel();
         main_panel.setLayout(null);
@@ -101,13 +131,13 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
 
         total_money_label_actual = BuyPanel();
 
-        main_panel.add(cart_items);
+        OG_panel.add(cart_items);
 
 //        JLabel logo_label2 = new JLabel("iFurnex");
 //        logo_label2.setBounds(30, 15, 200,45);
 //        logo_label2.setFont(new Font("Serif", Font.BOLD, 40));
 //        cart_items.add(logo_label2);
-        main_panel.add(cart_menu);
+        OG_panel.add(cart_menu);
 
 
 //        FastPanelList panelList = new FastPanelList(FastPanelList.FPLOrientation.VERTICAL,
@@ -123,24 +153,27 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
         //ShowItemList(cart_item_panel, cart_items);
         //cart_panel_container.setBackground(Color.GRAY);
         //-------------------------------------------------------------------------------
-        JPanel nav_bar = new JPanel();
+        nav_bar = new JPanel();
         nav_bar.setLayout(null);
         nav_bar.setBounds(50, 20, 1540 - 100, 80);
         nav_bar.setOpaque(false);
         //nav_bar.setBackground(Color.red);
-        main_panel.add(nav_bar);
+        //main_panel.add(nav_bar);
+        //nav_bar.setBounds(150, 100, 1540 - 100, 80);
+        OG_panel.add(nav_bar);
 
         JLabel logo_label = new JLabel("iFurnex");
         logo_label.setBounds(30, 15, 200, 45);
         logo_label.setFont(new Font("Serif", Font.BOLD, 40));
         nav_bar.add(logo_label);
 
-        JLabel shop_label = new JLabel("Shop  |");
+        JLabel shop_label = new JLabel("Shop  ");
         shop_label.setBounds((1540 / 2) - 150, 15, 60, 45);
         shop_label.setFont(new Font("Serif", Font.BOLD, 20));
+        shop_label.setForeground(new Color(210, 111, 0));
         nav_bar.add(shop_label);
 
-        JLabel about_label = new JLabel("About  |");
+        JLabel about_label = new JLabel("About  ");
         about_label.setBounds((1540 / 2) - 150 + 70, 15, 70, 45);
         about_label.setFont(new Font("Serif", Font.BOLD, 20));
         nav_bar.add(about_label);
@@ -149,6 +182,125 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
         contact_us_label.setBounds((1540 / 2) - 150 + 60 + 85, 15, 100, 45);
         contact_us_label.setFont(new Font("Serif", Font.BOLD, 20));
         nav_bar.add(contact_us_label);
+
+        //
+        shop_label.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                main_panel.setVisible(true);
+                shop_label.setForeground(new Color(210, 111, 0));
+                about_label.setForeground(Color.black);
+                contact_us_label.setForeground(Color.black);
+                about_us_main_panel.setVisible(false);
+                contact_us_main_panel.setVisible(false);
+//                if(about_us_main_panel != null){
+//                    about_us_main_panel.setVisible(false);
+//                    //about_us_main_panel.removeAll();
+//                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        about_label.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+//                if(about_us_main_panel == null){
+//                    main_panel.setVisible(false);
+////                    AboutUsPage();
+//                }
+//                else{
+//                    main_panel.setVisible(false);
+//                    about_us_main_panel.setVisible(true);
+//                }
+                about_us_main_panel.repaint();
+                main_panel.setVisible(false);
+                contact_us_main_panel.setVisible(false);
+                about_us_main_panel.repaint();
+                about_label.setForeground(new Color(210, 111, 0));
+                shop_label.setForeground(Color.black);
+                contact_us_label.setForeground(Color.black);
+                about_us_main_panel.setVisible(true);
+                about_us_main_panel.repaint();
+                about_us_main_panel.revalidate();
+                about_us_main_panel.setSize(1540, 801);
+                about_us_main_panel.setSize(1540, 800);
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        contact_us_label.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                //AboutUsPage();
+                contact_us_label.setForeground(new Color(210, 111, 0));
+                shop_label.setForeground(Color.black);
+                about_label.setForeground(Color.black);
+                contact_us_main_panel.setVisible(true);
+                main_panel.setVisible(false);
+                about_us_main_panel.setVisible(false);
+//                if(about_us_main_panel != null){
+//                    about_us_main_panel.setVisible(false);
+//                }
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+
+        //
 
         //JLabel cart_label = new JLabel("Cart (" + cart_items +")");
         cart_label = new JLabel("Cart (" + cart_manager.getCartItemsCounter() + ")");
@@ -306,6 +458,7 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
                 if(purchase_panel != null){
                     purchase_panel.setVisible(false);
                 }
+                nav_bar.setVisible(true);
 
                 //cart_items.removeAll();
 //                JFrame parent = (JFrame) cart_items.getTopLevelAncestor();
@@ -1176,13 +1329,21 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
 
     public void purchaseSuccessfulPanel(){
         //JPanel purchase_successfully_panel = new JPanel()
+        nav_bar.setVisible(false);
         purchase_panel = new JPanel();
         purchase_panel.setLayout(null);
         purchase_panel.setBounds(0, 0, 1540, 800);
         purchase_panel.setBackground(new Color(0,0,0,200));
         purchase_panel.setVisible(true);
+        background_panel.add(purchase_panel);
+        background_panel.setComponentZOrder(purchase_panel, background_panel.getComponentZOrder(OG_panel) + 1);
 
-        cart_menu.add(purchase_panel);
+        JPanel purchase_panel_black_layer = new JPanel();
+        purchase_panel_black_layer.setLayout(null);
+        purchase_panel_black_layer.setBounds(0, 0, 1540, 800);
+        purchase_panel_black_layer.setBackground(new Color(0,0,0,200));
+        purchase_panel_black_layer.setVisible(true);
+        purchase_panel.add(purchase_panel_black_layer);
 
         JPanel purchase_panel_two = new JPanel();
         purchase_panel_two.setLayout(null);
@@ -1190,7 +1351,7 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
         purchase_panel_two.setBackground(new Color(255,255,255,255));
         //purchase_panel_two.setBorder(new LineBorder(new Color(233,233,233,233), 4));
         purchase_panel_two.setBorder(new LineBorder(new Color(0, 203, 0,255), 3));
-        purchase_panel.add(purchase_panel_two);
+        purchase_panel_black_layer.add(purchase_panel_two);
 
         JLabel purchase_label = new JLabel("Payment Successful!");
         purchase_label.setBounds(85,50,500 ,70);
@@ -1206,12 +1367,299 @@ public class main_screen extends JFrame implements ActionListener, MouseListener
         purchase_label_two.setForeground(Color.black);
         purchase_panel_two.add(purchase_label_two);
 
-        main_panel.repaint();
+        OG_panel.repaint();
 
 //        JLabel total_money_label = new JLabel("Total");
 //        total_money_label.setBounds(20, 10, 50, 45);
 //        total_money_label.setFont(new Font("Serif", Font.BOLD, 20));
 //        cart_buy_panel.add(total_money_label);
+    }
+
+    public void AboutUsPage(){
+        //main_panel.setVisible(false);
+        //        System.out.println("test");
+//        BackgroundPanel about_use_main_panel = new BackgroundPanel(bg_img_two, BackgroundPanel.SCALED, 0f, 0f);
+//        //JPanel about_use_main_panel = new JPanel();
+//        about_use_main_panel.setLayout(null);
+//        about_use_main_panel.setBounds(0, 80+20, 1540, 800-80+20);
+//        about_use_main_panel.setVisible(true);
+//        //about_use_main_panel.setBackground(new Color(0,0,0,200));
+//        background_panel.add(about_use_main_panel);
+        about_us_main_panel = new JPanel();
+        about_us_main_panel.setLayout(null);
+        about_us_main_panel.setSize(1540, 800);
+        about_us_main_panel.setLocation(0, 0);
+        about_us_main_panel.setBackground(Color.white);
+        about_us_main_panel.setOpaque(true);
+        background_panel.add(about_us_main_panel);
+        //background_panel.setComponentZOrder(OG_panel, background_panel.getComponentZOrder(about_us_main_panel) + 1);
+
+        JPanel white_panel = new JPanel();
+        white_panel.setLayout(null);
+        white_panel.setBounds(100,250,1350,460);
+        white_panel.setBackground(new Color(255,255,255,255));
+        white_panel.setOpaque(true);
+        about_us_main_panel.add(white_panel);
+        about_us_main_panel.repaint();
+        white_panel.repaint();
+        //background_panel.setComponentZOrder(white_panel, background_panel.getComponentZOrder(about_us_main_panel) + 1);
+
+        JLabel about_us_label = new JLabel("About us");
+        about_us_label.setFont(new Font("Serif", Font.BOLD, 80));
+        about_us_label.setForeground(new Color(210, 111, 0));
+        about_us_label.setBounds(100,100,400,200);
+
+        about_us_main_panel.add(about_us_label);
+        white_panel.repaint();
+
+        String text = "iFurnex is a global home furnishing brand that brings affordability, design and comfort to people all over the world.";
+        String text2 = "Our vision is to: create a better everyday life for the many people.";
+        JLabel about_us_text = new JLabel("<HTML>" + text +"<br>" + text2 + "</HTML>");
+        about_us_text.setFont(new Font("Serif", Font.PLAIN, 60));
+        //about_us_text.setForeground(new Color(210, 111, 0));
+        about_us_text.setBounds(5,0,1100,450);
+//        about_us_text.setBackground(Color.white);
+//        about_us_text.setOpaque(true);
+
+        white_panel.add(about_us_text);
+        white_panel.repaint();
+        white_panel.revalidate();
+        about_us_main_panel.repaint();
+        background_panel.repaint();
+    }
+    public void ContactUsPage(){
+        contact_us_main_panel = new JPanel();
+        contact_us_main_panel.setLayout(null);
+        contact_us_main_panel.setSize(1540, 800);
+        contact_us_main_panel.setLocation(0, 0);
+        contact_us_main_panel.setBackground(Color.white);
+        contact_us_main_panel.setOpaque(true);
+        background_panel.add(contact_us_main_panel);
+
+        JPanel white_panel = new JPanel();
+        white_panel.setLayout(null);
+        white_panel.setBounds(530,260,440,460);
+        white_panel.setBackground(new Color(255,255,255,255));
+        white_panel.setOpaque(true);
+        contact_us_main_panel.add(white_panel);
+        contact_us_main_panel.repaint();
+        white_panel.repaint();
+        //background_panel.setComponentZOrder(white_panel, background_panel.getComponentZOrder(about_us_main_panel) + 1);
+
+        JLabel about_us_label = new JLabel("Contact us");
+        about_us_label.setFont(new Font("Serif", Font.BOLD, 80));
+        about_us_label.setForeground(new Color(210, 111, 0));
+        about_us_label.setBounds(560,100,400,200);
+
+        contact_us_main_panel.add(about_us_label);
+        white_panel.repaint();
+
+//        String text = "iFurnex is a global home furnishing brand that brings affordability, design and comfort to people all over the world.";
+//        String text2 = "Our vision is to: create a better everyday life for the many people.";
+//        JLabel about_us_text = new JLabel("<HTML>" + text +"<br>" + text2 + "</HTML>");
+//        about_us_text.setFont(new Font("Serif", Font.PLAIN, 60));
+//        //about_us_text.setForeground(new Color(210, 111, 0));
+//        about_us_text.setBounds(5,0,1100,450);
+//        about_us_text.setBackground(Color.white);
+//        about_us_text.setOpaque(true);
+        JLabel contact_us_first_name_label = new JLabel("First name");
+        contact_us_first_name_label.setBounds(10, 10, 120,30);
+        contact_us_first_name_label.setFont(new Font("Serif", Font.BOLD, 20));
+        white_panel.add(contact_us_first_name_label);
+
+        JTextField contact_us_first_name_field = new JTextField();
+        contact_us_first_name_field.setBounds(10,50,200,50);
+        white_panel.add(contact_us_first_name_field);
+
+        JLabel contact_us_last_name_label = new JLabel("Last name");
+        contact_us_last_name_label.setBounds(230, 10, 120,30);
+        contact_us_last_name_label.setFont(new Font("Serif", Font.BOLD, 20));
+        white_panel.add(contact_us_last_name_label);
+
+        JTextField contact_us_last_name_field = new JTextField();
+        contact_us_last_name_field.setBounds(230,50,200,50);
+        white_panel.add(contact_us_last_name_field);
+
+        JLabel contact_us_email_label = new JLabel("Email");
+        contact_us_email_label.setBounds(10, 110, 120,30);
+        contact_us_email_label.setFont(new Font("Serif", Font.BOLD, 20));
+        white_panel.add(contact_us_email_label);
+
+        JTextField contact_us_email_field = new JTextField();
+        contact_us_email_field.setBounds(10,150,420,50);
+        white_panel.add(contact_us_email_field);
+
+        JTextArea contact_us_message = new JTextArea();
+        contact_us_message.setBounds(10, 210, 420, 190);
+        contact_us_message.setBorder(new LineBorder(Color.black,2));
+        white_panel.add(contact_us_message);
+
+        JButton send_message = new JButton("Send message");
+        send_message.setBounds(20, 410, 400, 40);
+        send_message.setBackground(Color.black);
+        send_message.setForeground(Color.white);
+        send_message.setFont(new Font("Serif", Font.BOLD, 20));
+        white_panel.add(send_message);
+
+        send_message.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String first_name_value = contact_us_first_name_field.getText();
+                String last_name_value = contact_us_last_name_field.getText();
+                String email_value = contact_us_email_field.getText();
+                String message_value = contact_us_message.getText();
+
+                boolean isEmpty = true;
+                boolean isEmail = false;
+                if(!first_name_value.isEmpty() && !last_name_value.isEmpty() && !email_value.isEmpty() && !message_value.isEmpty()){
+                    isEmpty = false;
+                    String regexPattern = "^(?=.{1,64}@)[A-Za-z0-9_-]+(\\.[A-Za-z0-9_-]+)*@"
+                            + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
+                    Pattern pattern = Pattern.compile(regexPattern);
+                    Matcher matcher = pattern.matcher(email_value);
+                    if(matcher.matches()){
+                        isEmail = true;
+                    }
+                    else{
+                        contact_us_first_name_field.setBorder(new LineBorder(Color.red, 2));
+                        contact_us_last_name_field.setBorder(new LineBorder(Color.red, 2));
+                        contact_us_email_field.setBorder(new LineBorder(Color.red, 2));
+                        contact_us_message.setBorder(new LineBorder(Color.red, 2));
+                    }
+                }
+                else
+                {
+                    contact_us_first_name_field.setBorder(new LineBorder(Color.red, 2));
+                    contact_us_last_name_field.setBorder(new LineBorder(Color.red, 2));
+                    contact_us_email_field.setBorder(new LineBorder(Color.red, 2));
+                    contact_us_message.setBorder(new LineBorder(Color.red, 2));
+                }
+
+                if(!isEmpty && isEmail){
+                    sendEmail(first_name_value, last_name_value, email_value, message_value);
+                }
+
+            }
+        });
+
+        white_panel.repaint();
+        white_panel.revalidate();
+        contact_us_main_panel.repaint();
+        background_panel.repaint();
+    }
+
+    void sendEmail(String first_name, String last_name, String email, String message_text){
+//        System.out.println("SimpleEmail Start");
+//
+//        String smtpHostServer = "smtp.example.com";
+//        String emailID = "email_me@example.com";
+//
+//        Properties props = System.getProperties();
+//
+//        props.put("mail.smtp.host", smtpHostServer);
+//
+//        Session session = Session.getInstance(props, null);
+//
+//        //EmailUtil.sendEmail(session, emailID,"SimpleEmail Testing Subject", "SimpleEmail Testing Body");
+        // Recipient's email ID needs to be mentioned.
+//        String to = "haruyukari2@gmail.com";
+//
+//        // Sender's email ID needs to be mentioned
+//        String from = "m.solimann2@gmail.com";
+//
+//        // Assuming you are sending email from localhost
+//        String host = "localhost";
+//
+//        // Get system properties
+//        Properties properties = System.getProperties();
+//
+//        // Setup mail server
+//        properties.setProperty("mail.smtp.host", host);
+//
+//        // Get the default Session object.
+//        Session session = Session.getDefaultInstance(properties);
+//
+//        try {
+//            // Create a default MimeMessage object.
+//            MimeMessage message = new MimeMessage(session);
+//
+//            // Set From: header field of the header.
+//            message.setFrom(new InternetAddress(from));
+//
+//            // Set To: header field of the header.
+//            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+//
+//            // Set Subject: header field
+//            message.setSubject("This is the Subject Line!");
+//
+//            // Now set the actual message
+//            message.setText("This is actual message");
+//
+//            // Send message
+//            Transport.send(message);
+//            System.out.println("Sent message successfully....");
+//        } catch (MessagingException mex) {
+//            mex.printStackTrace();
+//        }
+
+        // Recipient's email ID needs to be mentioned.
+        String to = "haruderemail1@gmail.com";
+
+        // Sender's email ID needs to be mentioned
+        String from = "haruderemail1@gmail.com";
+
+        // Assuming you are sending email from through gmails smtp
+        String host = "smtp.gmail.com";
+
+        // Get system properties
+        Properties properties = System.getProperties();
+
+        // Setup mail server
+        properties.put("mail.smtp.host", host);
+        properties.put("mail.smtp.port", "465");
+        properties.put("mail.smtp.ssl.enable", "true");
+        properties.put("mail.smtp.auth", "true");
+
+        // Get the Session object.// and pass username and password
+        Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+
+            protected PasswordAuthentication getPasswordAuthentication() {
+
+                return new PasswordAuthentication("haruderemail1@gmail.com", "byetgaifrnntmmin");
+
+            }
+
+        });
+
+        // Used to debug SMTP issues
+        session.setDebug(true);
+
+        try {
+            // Create a default MimeMessage object.
+            MimeMessage message = new MimeMessage(session);
+
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
+
+            // Set To: header field of the header.
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+            // Set Subject: header field
+            message.setSubject("Email from " + first_name + " " + last_name);
+
+            // Now set the actual message
+            message.setText(message_text + "\n" + "This message is from " + email);
+
+            System.out.println("sending...");
+            // Send message
+            Transport.send(message);
+            System.out.println("Sent message successfully....");
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+        }
+
+
+
     }
 
     @Override

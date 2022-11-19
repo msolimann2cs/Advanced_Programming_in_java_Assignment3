@@ -22,7 +22,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 
-public class email_confirmation_screen extends JFrame implements ActionListener, KeyListener{
+public class password_reset_confirmation_screen extends JFrame implements ActionListener, KeyListener{
     //    JLabel label;
 //    JButton b1;
 //    JLabel l1;
@@ -30,7 +30,7 @@ public class email_confirmation_screen extends JFrame implements ActionListener,
     AccountManager account_manager = new AccountManager();
     //Cache cache = new Cache();
 
-    public email_confirmation_screen (BufferedImage bg_img, Account user, int verification_code) throws IOException {
+    public password_reset_confirmation_screen (BufferedImage bg_img, Account user, int verification_code) throws IOException {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1540,800);
         this.setLayout (null);
@@ -69,7 +69,7 @@ public class email_confirmation_screen extends JFrame implements ActionListener,
         //p2.setOpaque(true);
         main_panel.add(p2);
 
-        JLabel welcome_label = new JLabel("Create Account");
+        JLabel welcome_label = new JLabel("Reset Password");
         welcome_label.setBounds(p2.getX()+80, p2.getY()-80, 400,40);
         welcome_label.setFont(new Font("Serif", Font.BOLD, 40));
         Font welcome_label_font = welcome_label.getFont();
@@ -101,7 +101,7 @@ public class email_confirmation_screen extends JFrame implements ActionListener,
             public void mouseClicked(MouseEvent e) {
                 email_field.setBorder(new LineBorder(new Color(
                         0,192,0), 2));
-               // password_field.setBorder(new LineBorder(Color.black, 2));
+                // password_field.setBorder(new LineBorder(Color.black, 2));
             }
 
             @Override
@@ -138,10 +138,10 @@ public class email_confirmation_screen extends JFrame implements ActionListener,
         p2.setSize(450,349);
         p2.setSize(450,350);
 
-            JLabel create_account_label = new JLabel("Go back?");
-            create_account_label.setBounds(45, sign_in_button.getY()+63, 180,25);
-            create_account_label.setFont(new Font("Serif", Font.PLAIN, 17));
-            create_account_label.setForeground(Color.blue);
+        JLabel create_account_label = new JLabel("Go back?");
+        create_account_label.setBounds(45, sign_in_button.getY()+63, 180,25);
+        create_account_label.setFont(new Font("Serif", Font.PLAIN, 17));
+        create_account_label.setForeground(Color.blue);
 //        create_account_label.setBackground(new Color(0,0,0,0));
 //        create_account_label.setOpaque(true);
 
@@ -233,7 +233,7 @@ public class email_confirmation_screen extends JFrame implements ActionListener,
                 if(code.toString().equals(email_field_value)){
                     System.out.println("The code " + code + " is correct!!");
                     try {
-                        account_manager.addUser(user.getEmail(), user.getPassword(), user.getAccount_type());
+                        account_manager.changeUserPassowrd(user.getEmail(), user.getPassword(), user.getAccount_type());
                         dispose();
                         new main_screen(bg_img);
                     } catch (IOException ex) {

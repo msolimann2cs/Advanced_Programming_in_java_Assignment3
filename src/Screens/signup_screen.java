@@ -86,7 +86,7 @@ public class signup_screen extends JFrame implements ActionListener, KeyListener
         main_panel.add(p2);
 
         JLabel welcome_label = new JLabel("Create Account");
-        welcome_label.setBounds(p2.getX()+50, p2.getY()-80, 400,40);
+        welcome_label.setBounds(p2.getX()+85, p2.getY()-80, 400,40);
         welcome_label.setFont(new Font("Serif", Font.BOLD, 40));
         Font welcome_label_font = welcome_label.getFont();
         welcome_label_font = welcome_label_font.deriveFont(Collections.singletonMap(
@@ -115,7 +115,7 @@ public class signup_screen extends JFrame implements ActionListener, KeyListener
 
 
 
-        JLabel password_label = new JLabel("password");
+        JLabel password_label = new JLabel("Password");
         password_label.setBounds(30, email_field.getY()+60, 150,25);
         password_label.setFont(new Font("Serif", Font.PLAIN, 17));
         p2.add(password_label);
@@ -258,7 +258,13 @@ public class signup_screen extends JFrame implements ActionListener, KeyListener
         forgot_password_label.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-
+                setVisible(false);
+                dispose();
+                try {
+                    new reset_password_screen(bg_img);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
 
             @Override
@@ -320,6 +326,7 @@ public class signup_screen extends JFrame implements ActionListener, KeyListener
 
 
                 try {
+                    //&& !isEmpty &&isEmail
                     if(!account_manager.userExists(email_field_value, password_field_value) && !isEmpty &&isEmail){
                         user.setEmail(email_field_value);
                         user.setPassword(password_field_value);

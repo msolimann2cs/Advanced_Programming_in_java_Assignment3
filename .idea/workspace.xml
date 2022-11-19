@@ -1,23 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="907ff7fa-5b09-4423-9c4a-b97181525b49" name="Changes" comment="Need to be added:&#10;1- reading prices and stock from csv&#10;3- exception handling when out of stock and UI update (done)&#10;2- decreasing stock on purchase (done but need to do order confirmation UI aka number 4 on to do list)&#10;4- place order confirmation">
-      <change afterPath="$PROJECT_DIR$/src/LocalDatabase/furniture - Copy.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/cart2_red.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/products/beds/bed3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/products/chairs/chair3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/products/couches/couch2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/products/couches/couch3.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/products/tables/table2.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/images/products/tables/table3.png" afterDir="false" />
+    <list default="true" id="907ff7fa-5b09-4423-9c4a-b97181525b49" name="Changes" comment="Need to be added v1:&#10;1- reading prices and stock from csv (done)&#10;3- exception handling when out of stock and UI update (done)&#10;2- decreasing stock on purchase (done but need to do order confirmation UI aka number 4 on to do list)&#10;4- place order confirmation (done)&#10;&#10;Need to be added v2:&#10;About page&#10;Contact Us page&#10;Forgot password page&#10;improve sign up and email confirmation UI">
+      <change afterPath="$PROJECT_DIR$/src/Screens/password_reset_confirmation_screen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Furniture/Furniture.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Furniture/Furniture.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/LocalDatabase/furniture.csv" beforeDir="false" afterPath="$PROJECT_DIR$/src/LocalDatabase/furniture.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Managers/CartManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/CartManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Managers/FurnitureManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/FurnitureManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Managers/AccountManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Managers/AccountManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/email_confirmation_screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/email_confirmation_screen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/login_screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/login_screen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Screens/main_screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/main_screen.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/images/products/couches/couch2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/images/products/tables/table2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/reset_password_screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/reset_password_screen.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Screens/signup_screen.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Screens/signup_screen.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +119,14 @@
       <option name="project" value="LOCAL" />
       <updated>1668817564125</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Need to be added v1:&#10;1- reading prices and stock from csv (done)&#10;3- exception handling when out of stock and UI update (done)&#10;2- decreasing stock on purchase (done but need to do order confirmation UI aka number 4 on to do list)&#10;4- place order confirmation (done)&#10;&#10;Need to be added v2:&#10;About page&#10;Contact Us page&#10;Forgot password page&#10;improve sign up and email confirmation UI">
+      <created>1668872715807</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1668872715807</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -146,7 +146,8 @@
     <MESSAGE value="Refactored, added a few more screens that need work on" />
     <MESSAGE value="Need to be added:&#10;1- reading prices and stock from csv&#10;2- decreasing stock on purchase&#10;3- exception handing when out of stock and UI update&#10;4- place order confirmation" />
     <MESSAGE value="Need to be added:&#10;1- reading prices and stock from csv&#10;3- exception handling when out of stock and UI update (done)&#10;2- decreasing stock on purchase (done but need to do order confirmation UI aka number 4 on to do list)&#10;4- place order confirmation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Need to be added:&#10;1- reading prices and stock from csv&#10;3- exception handling when out of stock and UI update (done)&#10;2- decreasing stock on purchase (done but need to do order confirmation UI aka number 4 on to do list)&#10;4- place order confirmation" />
+    <MESSAGE value="Need to be added v1:&#10;1- reading prices and stock from csv (done)&#10;3- exception handling when out of stock and UI update (done)&#10;2- decreasing stock on purchase (done but need to do order confirmation UI aka number 4 on to do list)&#10;4- place order confirmation (done)&#10;&#10;Need to be added v2:&#10;About page&#10;Contact Us page&#10;Forgot password page&#10;improve sign up and email confirmation UI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Need to be added v1:&#10;1- reading prices and stock from csv (done)&#10;3- exception handling when out of stock and UI update (done)&#10;2- decreasing stock on purchase (done but need to do order confirmation UI aka number 4 on to do list)&#10;4- place order confirmation (done)&#10;&#10;Need to be added v2:&#10;About page&#10;Contact Us page&#10;Forgot password page&#10;improve sign up and email confirmation UI" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
