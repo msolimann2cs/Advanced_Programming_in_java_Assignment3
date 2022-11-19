@@ -1,9 +1,8 @@
 package Managers;
 
-import Furniture.Bed;
-import Furniture.Chair;
-import Furniture.Couch;
-import Furniture.Table;
+import Furniture.*;
+
+import java.util.ArrayList;
 
 public class FurnitureManager {
 
@@ -12,33 +11,64 @@ public class FurnitureManager {
     Couch couch = new Couch();
     Bed bed = new Bed();
 
+    public ArrayList<Furniture> items = new ArrayList<>();
+
     public FurnitureManager(){
         LoadFurniture();
-        chair.setStock(100);
+        chair.setStock(1);
         chair.setPrice(589);
         chair.setTitle("Chair");
-        table.setStock(100);
+        chair.setimgPath("C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\images\\products\\chairs\\chair2.png");
+        table.setStock(3);
         table.setPrice(189);
         table.setTitle("Table");
-        couch.setStock(100);
+        table.setimgPath("C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\images\\products\\tables\\table2.jpg");
+        couch.setStock(10);
         couch.setPrice(3750);
         couch.setTitle("Couch");
-        bed.setStock(100);
+        couch.setimgPath("C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\images\\products\\couches\\couch2.jpg");
+        bed.setStock(5);
         bed.setPrice(226);
         bed.setTitle("Bed");
+        bed.setimgPath("C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\images\\products\\beds\\bed2.png");
     }
+
 
     public void LoadFurniture(){
         System.out.println("Loading stock and prices from csv");
+        items.add(chair);
+        items.add(table);
+        items.add(couch);
+        items.add(bed);
     }
 
-    public void buyChair(){
-        chair.decreaseStock();
+    public void buyChairs(int amount){
+        for(int i = 0; i < amount; i++){
+            chair.decreaseStock();
+        }
+    }
+    public void buyTables(int amount){
+        for(int i = 0; i < amount; i++){
+            table.decreaseStock();
+        }
+    }
+    public void buyCouches(int amount){
+        for(int i = 0; i < amount; i++){
+            couch.decreaseStock();
+        }
+    }
+    public void buyBeds(int amount){
+        for(int i = 0; i < amount; i++){
+            bed.decreaseStock();
+        }
     }
     public void displayChairStock(){
         chair.displayStock();
     }
 
+    public String getChairImg(){
+        return chair.getImgPath();
+    }
     public int getChairPrice(){
         return chair.getPrice();
     }
