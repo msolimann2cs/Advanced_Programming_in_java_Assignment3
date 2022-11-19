@@ -1,8 +1,12 @@
 package Managers;
 
 import Furniture.*;
+import Users.Account;
+import com.opencsv.CSVWriter;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class FurnitureManager {
 
@@ -11,56 +15,122 @@ public class FurnitureManager {
     Couch couch = new Couch();
     Bed bed = new Bed();
 
+    String furniture_csv_path = "C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\LocalDatabase\\furniture.csv";
+
     public ArrayList<Furniture> items = new ArrayList<>();
 
-    public FurnitureManager(){
-        LoadFurniture();
-        chair.setStock(1);
-        chair.setPrice(589);
+    public FurnitureManager() throws IOException {
+
+        //chair.setStock(2);
+        //chair.setPrice(589);
         chair.setTitle("Chair");
         chair.setimgPath("C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\images\\products\\chairs\\chair2.png");
-        table.setStock(3);
-        table.setPrice(189);
+        chair.setImage_counter(1);
+        //table.setStock(3);
+        //table.setPrice(189);
         table.setTitle("Table");
-        table.setimgPath("C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\images\\products\\tables\\table2.jpg");
-        couch.setStock(10);
-        couch.setPrice(3750);
+        table.setimgPath("C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\images\\products\\tables\\table2.png");
+        table.setImage_counter(1);
+        //couch.setStock(10);
+        //couch.setPrice(3750);
         couch.setTitle("Couch");
-        couch.setimgPath("C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\images\\products\\couches\\couch2.jpg");
-        bed.setStock(5);
-        bed.setPrice(226);
+        couch.setimgPath("C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\images\\products\\couches\\couch2.png");
+        couch.setImage_counter(1);
+        //bed.setStock(5);
+        //bed.setPrice(226);
         bed.setTitle("Bed");
         bed.setimgPath("C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\images\\products\\beds\\bed2.png");
+        bed.setImage_counter(1);
+        LoadFurniture();
     }
 
 
-    public void LoadFurniture(){
+    public void LoadFurniture() throws IOException {
         System.out.println("Loading stock and prices from csv");
         items.add(chair);
         items.add(table);
         items.add(couch);
         items.add(bed);
+
+        BufferedReader br = new BufferedReader(new FileReader(furniture_csv_path));
+        String line = "";
+
+        boolean first_line = true;
+        while((line = br.readLine()) != null){
+            String [] furniture = line.split(",");
+            if(first_line == false){
+//                System.out.println(accounts[0]);
+//                System.out.println(accounts[1]);
+//                System.out.println(accounts[2]);
+                Furniture item2 = new Furniture();
+                if (Objects.equals(chair.getTitle(), furniture[0])){
+                    chair.setPrice(Integer.parseInt(furniture[1]));
+                    chair.setStock(Integer.parseInt(furniture[2]));
+                }
+                else if (Objects.equals(table.getTitle(), furniture[0])){
+                    table.setPrice(Integer.parseInt(furniture[1]));
+                    table.setStock(Integer.parseInt(furniture[2]));
+                }
+                else if (Objects.equals(couch.getTitle(), furniture[0])){
+                    couch.setPrice(Integer.parseInt(furniture[1]));
+                    couch.setStock(Integer.parseInt(furniture[2]));
+                }
+                else if (Objects.equals(bed.getTitle(), furniture[0])){
+                    bed.setPrice(Integer.parseInt(furniture[1]));
+                    bed.setStock(Integer.parseInt(furniture[2]));
+                }
+            }
+
+            first_line = false;
+        }
+
+        br.close();
     }
 
-    public void buyChairs(int amount){
+    public void buyChairs(int amount) throws IOException {
         for(int i = 0; i < amount; i++){
             chair.decreaseStock();
         }
+        updateDatabase(chair.getTitle(), String.valueOf(chair.getPrice()), String.valueOf(chair.getStock()));
     }
-    public void buyTables(int amount){
+    public void buyTables(int amount) throws IOException {
         for(int i = 0; i < amount; i++){
             table.decreaseStock();
         }
+        updateDatabase(table.getTitle(), String.valueOf(table.getPrice()), String.valueOf(table.getStock()));
     }
-    public void buyCouches(int amount){
+    public void buyCouches(int amount) throws IOException {
         for(int i = 0; i < amount; i++){
             couch.decreaseStock();
         }
+        updateDatabase(couch.getTitle(), String.valueOf(couch.getPrice()), String.valueOf(couch.getStock()));
     }
-    public void buyBeds(int amount){
+    public void buyBeds(int amount) throws IOException {
         for(int i = 0; i < amount; i++){
             bed.decreaseStock();
         }
+        updateDatabase(bed.getTitle(), String.valueOf(bed.getPrice()), String.valueOf(bed.getStock()));
+    }
+    public void updateDatabase(String item_name, String item_price, String item_stock) throws IOException {
+        if(items.isEmpty()){
+            LoadFurniture();
+        }
+        FileWriter outputfile = new FileWriter(furniture_csv_path);
+        // create CSVWriter object filewriter object as parameter
+        //CSVWriter writer = new CSVWriter(outputfile);
+        CSVWriter writer = new CSVWriter(outputfile, ',',
+                CSVWriter.NO_QUOTE_CHARACTER,
+                CSVWriter.DEFAULT_ESCAPE_CHARACTER,
+                CSVWriter.DEFAULT_LINE_END);
+        String[] account = { item_name, item_price, item_stock };
+        ArrayList<String[]> csv_data = new ArrayList<String[]>();
+        csv_data.add(new String[]{"Name", "Price", "Stock"});
+        for(int i = 0; i < items.size(); i++){
+            csv_data.add(new String[] {items.get(i).getTitle(), String.valueOf(items.get(i).getPrice()), String.valueOf(items.get(i).getStock())});
+        }
+        csv_data.add(account);
+        writer.writeAll(csv_data);
+        writer.close();
     }
     public void displayChairStock(){
         chair.displayStock();

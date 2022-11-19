@@ -7,6 +7,7 @@ public class Furniture {
     int stock;
     int price;
     String img_path;
+    int image_counter;
     static  int ID;
     public void setTitle(String title){
         this.title = title;
@@ -20,6 +21,9 @@ public class Furniture {
     public void setimgPath(String img_path){
         this.img_path = img_path;
     }
+    public void setImage_counter(int image_counter){
+        this.image_counter = image_counter;
+    }
 
     public String getTitle(){
         return title;
@@ -32,6 +36,9 @@ public class Furniture {
     }
     public String getImgPath(){
         return img_path;
+    }
+    public int getImage_counter(){
+        return image_counter;
     }
     public void decreaseStock(){
         this.stock--;

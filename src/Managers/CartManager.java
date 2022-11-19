@@ -2,6 +2,7 @@ package Managers;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -13,7 +14,17 @@ public class CartManager {
     int cart_items_counter = 0;
     int total = 0;
 
-    public CartManager(){
+    public CartManager() throws IOException {
+        for(int i = 0; i <4; i++){
+            cart_items_counter_two.add(0);
+        }
+    }
+
+    public void clearCart(){
+        total = 0;
+        cart_items_counter = 0;
+        cart_panel_item_panels.clear();
+        cart_items_counter_two.clear();
         for(int i = 0; i <4; i++){
             cart_items_counter_two.add(0);
         }
@@ -53,11 +64,14 @@ public class CartManager {
 //    }
     public void increaseItemsCounter(){
         cart_items_counter++;
-        updateChair();
+        //updateChair();
     }
     public void decreaseItemsCounter(){
         cart_items_counter--;
-        updateChair();
+        //updateChair();
+    }
+    public void clearItemsCounter(){
+        cart_items_counter = 0;
     }
 
     public void increaseChairCounter(){
