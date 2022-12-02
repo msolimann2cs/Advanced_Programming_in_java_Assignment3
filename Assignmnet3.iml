@@ -10,7 +10,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/javax.mail.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/Dependancies/javax.mail.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -19,7 +19,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/mailactivation/activation.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/Dependancies/activation.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -28,7 +28,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$USER_HOME$/Downloads/opencsv-5.7.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/src/Dependancies/opencsv-5.7.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

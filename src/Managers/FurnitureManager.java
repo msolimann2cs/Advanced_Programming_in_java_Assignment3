@@ -15,31 +15,22 @@ public class FurnitureManager {
     Couch couch = new Couch();
     Bed bed = new Bed();
 
-    String furniture_csv_path = "C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\LocalDatabase\\furniture.csv";
+    String furniture_csv_path = "src/LocalDatabase/furniture.csv";
 
     public ArrayList<Furniture> items = new ArrayList<>();
 
     public FurnitureManager() throws IOException {
-
-        //chair.setStock(2);
-        //chair.setPrice(589);
         chair.setTitle("Chair");
-        chair.setimgPath("C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\images\\products\\chairs\\chair2.png");
+        chair.setimgPath("src/images/products/chairs/chair2.png");
         chair.setImage_counter(1);
-        //table.setStock(3);
-        //table.setPrice(189);
         table.setTitle("Table");
-        table.setimgPath("C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\images\\products\\tables\\table2.png");
+        table.setimgPath("src/images/products/tables/table2.png");
         table.setImage_counter(1);
-        //couch.setStock(10);
-        //couch.setPrice(3750);
         couch.setTitle("Couch");
-        couch.setimgPath("C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\images\\products\\couches\\couch2.png");
+        couch.setimgPath("src/images/products/couches/couch2.png");
         couch.setImage_counter(1);
-        //bed.setStock(5);
-        //bed.setPrice(226);
         bed.setTitle("Bed");
-        bed.setimgPath("C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\images\\products\\beds\\bed2.png");
+        bed.setimgPath("src/images/products/beds/bed2.png");
         bed.setImage_counter(1);
         LoadFurniture();
     }
@@ -59,9 +50,6 @@ public class FurnitureManager {
         while((line = br.readLine()) != null){
             String [] furniture = line.split(",");
             if(first_line == false){
-//                System.out.println(accounts[0]);
-//                System.out.println(accounts[1]);
-//                System.out.println(accounts[2]);
                 Furniture item2 = new Furniture();
                 if (Objects.equals(chair.getTitle(), furniture[0])){
                     chair.setPrice(Integer.parseInt(furniture[1]));
@@ -116,8 +104,6 @@ public class FurnitureManager {
             LoadFurniture();
         }
         FileWriter outputfile = new FileWriter(furniture_csv_path);
-        // create CSVWriter object filewriter object as parameter
-        //CSVWriter writer = new CSVWriter(outputfile);
         CSVWriter writer = new CSVWriter(outputfile, ',',
                 CSVWriter.NO_QUOTE_CHARACTER,
                 CSVWriter.DEFAULT_ESCAPE_CHARACTER,
@@ -128,14 +114,13 @@ public class FurnitureManager {
         for(int i = 0; i < items.size(); i++){
             csv_data.add(new String[] {items.get(i).getTitle(), String.valueOf(items.get(i).getPrice()), String.valueOf(items.get(i).getStock())});
         }
-        csv_data.add(account);
+        //csv_data.add(account);
         writer.writeAll(csv_data);
         writer.close();
     }
     public void displayChairStock(){
         chair.displayStock();
     }
-
     public String getChairImg(){
         return chair.getImgPath();
     }

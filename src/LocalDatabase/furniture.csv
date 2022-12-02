@@ -1,6 +1,5 @@
 Name,Price,Stock
-Chair,589,50
-Table,189,25
-Couch,3750,50
-Bed,226,50
-Bed,226,50
+Chair,589,5
+Table,189,6
+Couch,3750,22
+Bed,226,0

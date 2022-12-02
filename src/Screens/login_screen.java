@@ -23,35 +23,19 @@ import java.io.IOException;
 import java.util.Collections;
 
 public class login_screen extends JFrame implements ActionListener, KeyListener{
-//    JLabel label;
-//    JButton b1;
-//    JLabel l1;
-//    JPanel panel1;
     AccountManager account_manager = new AccountManager();
-    //Cache cache = new Cache();
-
     public login_screen (BufferedImage bg_img) throws IOException {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(1540,800);
         this.setLayout (null);
-        //this.setLayout(new BorderLayout());
-        //Container content_pane = this.getContentPane();
-        //content_pane.setLayout(new BorderLayout());
-        //this.getContentPane().setBackground(Color.black);
-
         BackgroundPanel background_panel = new BackgroundPanel(bg_img, BackgroundPanel.SCALED, 0f, 0f);
-        //GradientPaint paint = new GradientPaint(0, 0, Color.BLUE, 600, 0, Color.RED);
-        //background_panel.setPaint(paint);
-        //content_pane.add(background_panel);
         background_panel.setLayout(null);
         this.setContentPane(background_panel);
-        //this.add(background_panel);
         this.setVisible(true);
 
         //---------------------------------------------------------------------------------
         JPanel main_panel = new JPanel();
         main_panel.setLayout(null);
-        //main_panel.setBorder(new LineBorder(Color.black, 3));
         main_panel.setSize(1540,800);
         main_panel.setLocation(0, 0);
         main_panel.setBackground(Color.red);
@@ -61,12 +45,9 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
 
         JPanel p2 = new JPanel();
         p2.setLayout(null);
-        //p2.setBorder(new LineBorder(Color.lightGray, 3));
         p2.setSize(450,350);
         p2.setLocation((main_panel.getWidth()/2)-(p2.getWidth()/2), (main_panel.getHeight()/2)-(p2.getHeight()/2));
-        //p2.setBackground(Color.white);
         p2.setBackground(new Color(255,255,255,190));
-        //p2.setOpaque(true);
         main_panel.add(p2);
 
         JLabel welcome_label = new JLabel("Welcome to iFurnex");
@@ -86,24 +67,17 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
         p2.add(email_label);
 
         JTextField email_field = new JTextField(20);
-        //email_field.setBorder(new LineBorder(Color.black, 2));
         email_field.setBounds(30,email_label.getY()+40,p2.getWidth()-60,45);
-        //email_field.requestFocus(false);
         email_field.setBorder(new LineBorder(new Color(
                 0,192,0), 2));
-        //email_field.requestFocus();
         email_field.setFocusTraversalKeysEnabled(false);
         p2.add(email_field);
-
-
-
 
 
         JLabel password_label = new JLabel("Password");
         password_label.setBounds(30, email_field.getY()+60, 150,25);
         password_label.setFont(new Font("Serif", Font.PLAIN, 17));
         p2.add(password_label);
-        //p2.revalidate();
         p2.setSize(450,349);
         p2.setSize(450,350);
         JPasswordField password_field = new JPasswordField(20);
@@ -174,10 +148,8 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
                 0,192,0));
         sign_in_button.setForeground(Color.white);
         sign_in_button.setFont(new Font("Serif", Font.PLAIN, 17));
-        //sign_in_button.setBorder(new LineBorder(Color.black, 2));
         sign_in_button.setBounds(60, password_field.getY()+75, p2.getWidth()-120, 45);
         sign_in_button.setFocusTraversalKeysEnabled(false);
-        //sign_in_button.setBorder(new RoundedBorder(30));
         p2.add(sign_in_button);
         p2.setSize(450,349);
         p2.setSize(450,350);
@@ -186,8 +158,6 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
         create_account_label.setBounds(45, sign_in_button.getY()+63, 180,25);
         create_account_label.setFont(new Font("Serif", Font.PLAIN, 17));
         create_account_label.setForeground(Color.blue);
-//        create_account_label.setBackground(new Color(0,0,0,0));
-//        create_account_label.setOpaque(true);
 
         p2.add(create_account_label);
 
@@ -215,22 +185,15 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
 
             @Override
             public void mouseEntered(MouseEvent e) {
-                //create_account_label.setBackground(new Color(255,255,255,190));
                 create_account_label.setForeground(new Color(
                         0,192,0));
                 main_panel.repaint();
-                //p2.setBackground(new Color(0,255,255,190));
-                //create_account_label.setOpaque(false);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-                //create_account_label.setBackground(new Color(255,255,255,190));
                 create_account_label.setForeground(Color.blue);
                 main_panel.repaint();
-                //p2.setBackground(new Color(255,255,255,190));
-                //create_account_label.setOpaque(false);
-
             }
         });
 
@@ -448,31 +411,6 @@ public class login_screen extends JFrame implements ActionListener, KeyListener{
 
             }
         });
-        //p2.revalidate();
-        //----------------------------------------------------------------------------------
-        //background_panel.add(main_panel, BorderLayout.CENTER);
-        //background_panel.add(main_panel);
-//        l1=new JLabel("Here is a button");
-//        l1.setForeground(Color.white);
-//        l1.setFont(new Font("Serif", Font.PLAIN, 50));
-//        l1.setBackground(Color.green);
-//        //l1.setBounds(0,0,200,20);
-//        l1.setLocation(0,0);
-//        main_panel.add(l1);
-        //b1=new JButton("I am a button");
-//        label = new JLabel();
-//        //label.setFont(new Font("Serif", Font.PLAIN, 50));
-//        //label.setForeground(Color.white);
-//        label.setBounds(0, 0, 20, 20);
-//        label.setBackground(Color.white);
-//        label.setOpaque(true);
-        //background_panel.add(l1);
-
-        //background_panel.add(label);
-        //background_panel.add(b1);
-
-
-
     }
 
     @Override

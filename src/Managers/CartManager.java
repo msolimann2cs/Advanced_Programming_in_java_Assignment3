@@ -59,16 +59,12 @@ public class CartManager {
         return cart_items_counter_two.get(3);
     }
 
-//    public void buyChairs(int ){
-//        furniture_manager.buyChairs();
-//    }
     public void increaseItemsCounter(){
         cart_items_counter++;
         //updateChair();
     }
     public void decreaseItemsCounter(){
         cart_items_counter--;
-        //updateChair();
     }
     public void clearItemsCounter(){
         cart_items_counter = 0;
@@ -83,7 +79,6 @@ public class CartManager {
     public void decreaseChairCounter(){
         cart_items_counter_two.set(0, cart_items_counter_two.get(0) - 1);
         decreaseItemsCounter();
-        //int money = getChairCounter() > 0 ? furniture_manger.getChairPrice() * getChairCounter() : furniture_manger.getChairPrice();
         total -= furniture_manager.getChairPrice();
         updateChair();
     }
@@ -123,7 +118,7 @@ public class CartManager {
         total -= furniture_manager.getBedPrice();
         updateBed();
     }
-//    public int getChairCounter(){}
+
     public ArrayList<JPanel> getCart(){
         return cart_panel_item_panels;
     }
@@ -237,8 +232,6 @@ public class CartManager {
                             }
                             if( b instanceof JLabel && b != c){
                                 if(((JLabel) b).getText().contains("$")){
-//                                    int money = getTableCounter() > 0 ? furniture_manger.getTablePrice() * getTableCounter() : furniture_manger.getTablePrice();
-//                                    total += money;
                                     ((JLabel) b).setText("$" + String.valueOf(getTableCounter() > 0 ? furniture_manager.getTablePrice() * getTableCounter() : furniture_manager.getTablePrice() ));
                                 }
                             }
@@ -254,7 +247,6 @@ public class CartManager {
                 if (c instanceof JLabel) {
                     if (Objects.equals(((JLabel) c).getText(), "Couch")) {
                         for (Component b : cart_panel_item_panels.get(i).getComponents()) {
-                            //if(((JLabel) b).getText() == "0")
                             if (b instanceof JLabel && b != c) {
                                 if(!Objects.equals(((JLabel) b).getText(), "-") && !Objects.equals(((JLabel) b).getText(), "+") && !((JLabel) b).getText().contains("$")){
                                     ((JLabel) b).setText(cart_items_counter_two.get(2).toString());
@@ -262,8 +254,6 @@ public class CartManager {
                             }
                             if( b instanceof JLabel && b != c){
                                 if(((JLabel) b).getText().contains("$")){
-//                                    int money = getCouchCounter() > 0 ? furniture_manger.getCouchPrice() * getCouchCounter() : furniture_manger.getTablePrice();
-//                                    total += money;
                                     ((JLabel) b).setText("$" + String.valueOf(getCouchCounter() > 0 ? furniture_manager.getCouchPrice() * getCouchCounter() : furniture_manager.getTablePrice() ));
                                 }
                             }
@@ -279,7 +269,6 @@ public class CartManager {
                 if (c instanceof JLabel) {
                     if (Objects.equals(((JLabel) c).getText(), "Bed")) {
                         for (Component b : cart_panel_item_panels.get(i).getComponents()) {
-                            //if(((JLabel) b).getText() == "0")
                             if (b instanceof JLabel && b != c) {
                                 if(!Objects.equals(((JLabel) b).getText(), "-") && !Objects.equals(((JLabel) b).getText(), "+") && !((JLabel) b).getText().contains("$")){
                                     ((JLabel) b).setText(cart_items_counter_two.get(3).toString());
@@ -287,8 +276,6 @@ public class CartManager {
                             }
                             if( b instanceof JLabel && b != c){
                                 if(((JLabel) b).getText().contains("$")){
-//                                    int money = getBedCounter() > 0 ? furniture_manger.getBedPrice() * getBedCounter() : furniture_manger.getBedPrice();
-//                                    total += money;
                                     ((JLabel) b).setText("$" + String.valueOf(getBedCounter() > 0 ? furniture_manager.getBedPrice() * getBedCounter() : furniture_manager.getBedPrice() ));
                                 }
                             }
@@ -298,126 +285,5 @@ public class CartManager {
             }
         }
     }
-
-
-
-//    public void createChairPanel() throws IOException {
-//                if(cartEmpty()) {
-//                    JPanel cart_panel_item = new JPanel();
-//                    cart_panel_item.setBounds(0, 10, 400, 100);
-//                    //cart_panel_item.setBackground(new Color(255,255,255,150));
-//                    cart_panel_item.setBackground(Color.white);
-//                    cart_panel_item.setLayout(null);
-//
-//                    BufferedImage chair_item_img = ImageIO.read(new File("C:\\Users\\msoli\\IdeaProjects\\Assignmnet3\\src\\images\\products\\chairs\\chair2.png"));
-//                    Components.BackgroundPanel chair_item_background1 = new Components.BackgroundPanel(chair_item_img, Components.BackgroundPanel.SCALED, 0f, 0f);
-//                    chair_item_background1.setBounds(20, 10, 100, 80);
-//                    cart_panel_item.add(chair_item_background1);
-//
-//                    JLabel test_label = new JLabel("Chair");
-//                    //System.out.println("size: " + test_label.getUIClassID());
-//                    test_label.setBounds(chair_item_background1.getWidth() + chair_item_background1.getX() + 10, 10, 50, 20);
-//                    test_label.setFont(new Font("Serif", Font.BOLD, 20));
-//                    cart_panel_item.add(test_label);
-//
-//                    JLabel remove_item_label = new JLabel("-");
-//                    //S//ystem.out.println("size: " + test_label.getUIClassID());
-//                    remove_item_label.setBounds(chair_item_background1.getWidth() + chair_item_background1.getX() + 10, 57, 50, 20);
-//                    remove_item_label.setFont(new Font("Serif", Font.PLAIN, 30));
-//                    cart_panel_item.add(remove_item_label);
-//
-//                    remove_item_label.addMouseListener(new MouseListener() {
-//                        @Override
-//                        public void mouseClicked(MouseEvent e) {
-//                            //furniture_manger.buyChair();
-//                            //furniture_manger.displayStock();
-//                            decreaseChairCounter();
-//                            //cart_label.setText("Cart (" + cart_manager.getCartItemsCounter() +")");
-//                            //cart_manager.updateChair();
-//                            //cart_items_counter_two.set(0, cart_items_counter_two.get(0) - 1);
-//                        }
-//
-//                        @Override
-//                        public void mousePressed(MouseEvent e) {
-//
-//                        }
-//
-//                        @Override
-//                        public void mouseReleased(MouseEvent e) {
-//
-//                        }
-//
-//                        @Override
-//                        public void mouseEntered(MouseEvent e) {
-//                        }
-//
-//                        @Override
-//                        public void mouseExited(MouseEvent e) {
-//
-//                        }
-//                    });
-//
-//                    JLabel item_count_label = new JLabel(String.valueOf(getChairCounter()));
-//                    //S//ystem.out.println("size: " + test_label.getUIClassID());
-//                    item_count_label.setBounds(chair_item_background1.getWidth() + chair_item_background1.getX() + 10 + 30, 60, 50, 20);
-//                    item_count_label.setFont(new Font("Serif", Font.BOLD, 20));
-//                    cart_panel_item.add(item_count_label);
-//
-//                    JLabel add_item_label = new JLabel("+");
-//                    //S//ystem.out.println("size: " + test_label.getUIClassID());
-//                    add_item_label.setBounds(chair_item_background1.getWidth() + chair_item_background1.getX() + 10 + 30 + 30, 60, 50, 20);
-//                    add_item_label.setFont(new Font("Serif", Font.BOLD, 30));
-//                    cart_panel_item.add(add_item_label);
-//
-//                    add_item_label.addMouseListener(new MouseListener() {
-//                        @Override
-//                        public void mouseClicked(MouseEvent e) {
-//                            increaseChairCounter();
-//                            //cart_label.setText("Cart (" + cart_manager.getCartItemsCounter() +")");
-//                        }
-//
-//                        @Override
-//                        public void mousePressed(MouseEvent e) {
-//
-//                        }
-//
-//                        @Override
-//                        public void mouseReleased(MouseEvent e) {
-//
-//                        }
-//
-//                        @Override
-//                        public void mouseEntered(MouseEvent e) {
-//
-//                        }
-//
-//                        @Override
-//                        public void mouseExited(MouseEvent e) {
-//
-//                        }
-//                    });
-//
-//                    JLabel price_label = new JLabel("$100");
-//                    //S//ystem.out.println("size: " + test_label.getUIClassID());
-//                    price_label.setBounds(chair_item_background1.getWidth() + chair_item_background1.getX() + 180, 60, 130, 20);
-//                    price_label.setFont(new Font("Serif", Font.BOLD, 20));
-//                    cart_panel_item.add(price_label);
-//
-//                    addToCart(cart_panel_item);
-//                    updateChair();
-//                    //cart_label.setText("Cart (" + cart_manager.getCartItemsCounter() +")");
-//                }
-//                else {
-//                    updateChair();
-//                    //cart_label.setText("Cart (" + cart_manager.getCartItemsCounter() +")");
-//                }
-////                Chair chair = new Chair();
-////                chair.setStock(100);
-////                chair.setPrice(589);
-////                chair.setTitle("Chair");
-//                //cart_items_array.add(chair);
-//                //cart_label.setLocation(1540 - 280, 15);
-//                //System.out.println(cart_items_counter);
-//            }
 
 }
